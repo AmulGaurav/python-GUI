@@ -1,30 +1,34 @@
 from turtle import Turtle
 
+MOVE_DISTANCE_X = 3
+MOVE_DISTANCE_Y = 3
+
 
 class Ball(Turtle):
-
     def __init__(self):
         super().__init__()
+        self.move_speed = 0.02
         self.color("white")
         self.shape("circle")
+        self.speed("fastest")
         self.penup()
-        self.x_move = 3
-        self.y_move = 3
-        self.move_speed = 0.01
+        self.goto(x=0, y=0)
 
     def move(self):
-        new_x = self.xcor() + self.x_move
-        new_y = self.ycor() + self.y_move
+        new_x = self.xcor() + MOVE_DISTANCE_X
+        new_y = self.ycor() + MOVE_DISTANCE_Y
         self.goto(new_x, new_y)
 
     def bounce_y(self):
-        self.y_move *= -1
+        global MOVE_DISTANCE_Y
+        MOVE_DISTANCE_Y *= -1
 
     def bounce_x(self):
-        self.x_move *= -1
-        self.move_speed /= 10
+        global MOVE_DISTANCE_X
+        MOVE_DISTANCE_X *= -1
+        self.move_speed *= 0.9
 
     def reset_position(self):
-        self.goto(0, 0)
-        self.move_speed = 0.1
+        self.goto(x=0, y=0)
+        self.move_speed = 0.02
         self.bounce_x()
